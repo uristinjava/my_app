@@ -1,12 +1,16 @@
 
 import './App.css';
+import Message from './components/Message';
 
-function App(props) {
+const headerText = 'Первое приложение'
+const myName = 'Миха'
+
+
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        My First React App
-        <h3>Hello, {props.name}</h3>
+        <Message headerText={headerText} name={myName} />
       </header>
     </div>
   );
