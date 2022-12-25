@@ -1,6 +1,7 @@
 import React from "react";
-import '../styles/MessegesList.css'
-import styles from './messagesList.module.css'
+import '../styles/MessegesList.css';
+import styles from './messagesList.module.css';
+import PropTypes from 'prop-types';
 
 const MessegesList = ({ messeges }) => {
     return (
@@ -14,6 +15,10 @@ const MessegesList = ({ messeges }) => {
 
         </div >
     )
+};
+
+MessegesList.propTypes = {
+    messeges: PropTypes.array
 };
 
 export default MessegesList
