@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useState } from "react";
-import PostList from "./components/PostList";
+import Forma from "./components/Forma";
+import MainText from "./components/MainText";
+import MessegesList from "./components/MessegesList";
 import './styles/App.css';
-import PostForm from "./components/PostForm";
 
 
 
@@ -9,39 +11,42 @@ import PostForm from "./components/PostForm";
 
 
 function App() {
-  const [posts, setPosts] = useState(
-    [
-      { id: 1, title: 'JavaScript', body: 'Description' },
-      { id: 2, title: 'JavaScript 2', body: 'Description' },
-      { id: 3, title: 'JavaScript 3', body: 'Description' },
-    ]
-  );
+  const [msges, setMsges] = useState([]);
 
-  const createPost = (newPost) => {
-    setPosts([...posts, newPost])
-  };
-
-  const removePost = (post) => {
-    setPosts(posts.filter(p => p.id !== post.id))
+  const addMesseges = (newMsges) => {
+    setMsges([...msges, newMsges])
   }
 
+  useEffect(() => {
 
+    if (msges.length > 0 && msges[msges.length - 1].autor === 'user') {
+      const timeout = setTimeout(() => {
+        addMesseges({
+          autor: 'bot',
+          text: 'Ваше сообщение очень важно для нас'
+
+        })
+      }, 1500)
+      return () => {
+        clearTimeout(timeout)
+      }
+    }
+  }, [msges])
 
 
   return (
-    <div className="App">
-      <PostForm create={createPost} />
-      {posts.length !== 0
-        ? <PostList remove={removePost} posts={posts} title="Посты про JS" />
-        :
-        <h1 style={{ textAlign: 'center' }}>
-          Посты не найдены!
-        </h1>
-      }
+    <>
+      <h1>Welcome to chat</h1>
+      <hr />
+      <Forma addMesseges={addMesseges} />
+      <hr />
+      <MessegesList messeges={msges} />
 
-    </div>
+    </>
   )
+};
 
-}
+
+
 
 export default App;
